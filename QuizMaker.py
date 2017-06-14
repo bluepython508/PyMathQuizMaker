@@ -82,7 +82,7 @@ def main():
 	parsetake = subparse.add_parser('take')
 	parsetake.add_argument('-q', '--quiz', type=argparse.FileType('r'), dest="inf", required=True)
 	parsetake.add_argument('-k', '--key', type=argparse.FileType('r'), dest="keyf", required=True)
-	parsecreate.add_argument('-r', '--record-file', dest="record_file", type=argparse.FileType('w'), required=False)
+	parsetake.add_argument('-r', '--record-file', dest="record_file", type=argparse.FileType('w'), required=False)
 	form = parsecreate.add_mutually_exclusive_group(required=True)
 	form.add_argument('-f', '--file', type=argparse.FileType('r'), dest="inf")
 	form.add_argument('-s', '--string')
