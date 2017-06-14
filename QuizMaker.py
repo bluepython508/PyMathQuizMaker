@@ -19,6 +19,32 @@ def createq(qf):
 
 
 def take(args):
+	messages = {True:["Correct!", "Very good!", "Right", "Awesome!"], False:["Wrong", "Incorrect", "Too bad"]}
+	quiz = args.inf.read()
+	key = args.keyf.read()
+	quiz = quiz.split("\n\n")
+	key = key.split('\n')
+	results = []
+	for question in quiz:
+		guess = eval(input(question))
+		answer = eval(key[quiz.index(question)])
+		print(random.choice(messages[(guess==answer)]))
+		results.append((guess == answer))
+	correct = 0
+	for x in results:
+		if x:
+			correct += 1
+	percent = (correct/len(key))*100
+	print("You got %s percent correct." % (percent))
+	def replace(x):
+		if x:
+			return "Correct"
+		else:
+			return "Incorrect"
+	if record_file:
+		result = map(replace, results)
+		results = ' '.join(result)
+		record_file.write("Percent: %s\n%s" % (percent, results))
 	pass
 
 def create(args):
@@ -54,7 +80,9 @@ def main():
 	subparse = rootparse.add_subparsers()
 	parsecreate = subparse.add_parser('create')
 	parsetake = subparse.add_parser('take')
-	parsetake.add_argument('-f', '--file', type=argparse.FileType('r'), dest="inf")
+	parsetake.add_argument('-q', '--quiz', type=argparse.FileType('r'), dest="inf", required=True)
+	parsetake.add_argument('-k', '--key', type=argparse.FileType('r'), dest="keyf", required=True)
+	parsecreate.add_argument('-r', '--record-file', dest="record_file", type=argparse.FileType('w'), required=False)
 	form = parsecreate.add_mutually_exclusive_group(required=True)
 	form.add_argument('-f', '--file', type=argparse.FileType('r'), dest="inf")
 	form.add_argument('-s', '--string')
