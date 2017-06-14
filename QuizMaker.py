@@ -24,6 +24,7 @@ def take(args):
 	key = args.keyf.read()
 	quiz = quiz.split("\n\n")
 	key = key.split('\n')
+	quiz.pop()
 	results = []
 	for question in quiz:
 		guess = eval(input(question))
@@ -41,10 +42,10 @@ def take(args):
 			return "Correct"
 		else:
 			return "Incorrect"
-	if record_file:
+	if args.record_file:
 		result = map(replace, results)
 		results = ' '.join(result)
-		record_file.write("Percent: %s\n%s" % (percent, results))
+		args.record_file.write("Percent: %s\n%s" % (percent, results))
 	pass
 
 def create(args):
