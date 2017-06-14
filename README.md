@@ -11,7 +11,7 @@ If you use -s, pass a string with a question set.
 if you use -r, the question set will be read from stdin.
 -k and -q set the output files (default stdout).
 ### Question sets
-In a question set, each question must be seperated by a space. Each question should start with one of the letters a_(add)_ s_(subtract)_, m_(multiply)_, d_(divide)_.It should be followed by ':', the the number of digits in the first number, ':', and the number of digits in the second number.
+In a question set, each question must be seperated by a space. Each question should start with one of the letters a _(add)_    s _(subtract)_ , m _(multiply)_, d _(divide)_ .It should be followed by ':', the the number of digits in the first number, ':', and the number of digits in the second number.
 
 ## Taking a quiz
 To take a quiz, you must create one first.
