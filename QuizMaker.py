@@ -13,15 +13,15 @@ def createq(qf):
 	no2 = []
 	for x in range(int(qf[1])):
 		if x == 0:
-			no1.append(random.randint(1,9)
+			no1.append(random.randint(1,9))
 		else:
-			no1.append(random.randint(0, 9)
+			no1.append(random.randint(0, 9))
 	no1 = ''.join(no1[:])
 	for x in range(int(qf[2])):
 		if x == 0:
-			no2.append(random.randint(1,9)
+			no2.append(random.randint(1,9))
 		else:
-			no2.append(random.randint(0, 9)
+			no2.append(random.randint(0, 9))
 	no2 = ''.join(no2[:])
 	answer = eval(no1 + expansions[qf[0]][1] + no2)
 	return (question(no1, no2), answer)
