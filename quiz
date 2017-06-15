@@ -1,5 +1,5 @@
 #!/bin/sh
-if [ "$1" == "-g" || "$1" == "--gui" ]; then
+if [ "$1" == "-g" || "$1" == "--gui" || "$1" == "gui" ]; then
 	python3 GUI.py
 else
 	python3 QuizMaker.py "$@"
