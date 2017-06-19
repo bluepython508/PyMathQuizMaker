@@ -64,7 +64,7 @@ def create(args):
 			questions.append(str(question))
 			answers.append(str(answer))
 		else:
-			print("'%s' is not a recognized type of question."(qf[0]))
+			print("'%s' is not a recognized type of question." % (qf[0]))
 	questions.append('\n')
 	answers.append('\n')
 	quiz = '\n\n'.join(questions)
