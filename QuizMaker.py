@@ -77,7 +77,7 @@ def create(args):
 
 
 def main():
-	rootparse = argparse.ArgumentParser()
+	rootparse = argparse.ArgumentParser(prog='quiz')
 	subparse = rootparse.add_subparsers()
 	parsecreate = subparse.add_parser('create')
 	parsetake = subparse.add_parser('take')
