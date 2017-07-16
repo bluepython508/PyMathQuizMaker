@@ -5,7 +5,9 @@ import os
 import sys
 import random as r
 random = r.SystemRandom()
-expansions = {"d":["Divide %s by %s.",'//'], "a":["Add %s to %s.", '+'] ,"s":["Subtract %s from %s.", '-'] ,"m":["Multiply %s by %s.", '*']}
+expansions = {"d":["Divide %s by %s and round down.",'//'], "a":["Add %s to %s.", '+'] ,"s":["Subtract %s from %s.", '-'] ,"m":["Multiply %s by %s.", '*']}
+def gui(args):
+	os.system('python3 GUI.py')
 def createq(qf):
 	qf = qf.split(":")
 	question = expansions[qf[0]][0]
@@ -14,7 +16,7 @@ def createq(qf):
 	answer = eval(no1 + expansions[qf[0]][1] + no2)
 	if qf[0] == "s":
 		return (question % (no2, no1), answer)
-	else:	
+	else:
 		return (question % (no1, no2), answer)
 
 
@@ -77,11 +79,12 @@ def create(args):
 
 
 def main():
-	rootparse = argparse.ArgumentParser(prog='quiz')
+	rootparse = argparse.ArgumentParser(prog="quiz")
 	subparse = rootparse.add_subparsers()
 	parsecreate = subparse.add_parser('create')
 	parsetake = subparse.add_parser('take')
-	parsetake.add_argument('-q', '--quiz', type=argparse.FileType('r'), dest="questionf", required=True)
+	parsegui = subparse.add_parser('gui')
+	parsetake.add_argument('-q', '--quiz', type=argparse.FileType('r'), dest="inf", required=True)
 	parsetake.add_argument('-k', '--key', type=argparse.FileType('r'), dest="keyf", required=True)
 	parsetake.add_argument('-r', '--record-file', dest="record_file", type=argparse.FileType('w'), required=False)
 	form = parsecreate.add_mutually_exclusive_group(required=True)
@@ -92,8 +95,8 @@ def main():
 	parsecreate.add_argument('-k', '--key', dest="outfile_key", type=argparse.FileType('w'), default=sys.stdout, required=False)
 	parsecreate.set_defaults(mode=create)
 	parsetake.set_defaults(mode=take)
+	parsegui.set_defaults(mode=gui)
 	args = rootparse.parse_args()
 	args.mode(args)
 if __name__ == '__main__':
 	main()
-
