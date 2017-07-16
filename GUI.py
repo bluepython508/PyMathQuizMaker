@@ -101,8 +101,8 @@ def take(tk):
 	quiz = qf.read()
 	kf.close()
 	qf.close()
-	keylist = key.split('\n')
-	quizqs = quiz.split('\n\n')
+	keylist = key.split('\n')[:-2]
+	quizqs = quiz.split('\n\n')[:-1]
 	print (quizqs,keylist)
 	key = keylist
 	quiz = quizqs
@@ -111,18 +111,19 @@ def take(tk):
 		return
 	record = []
 	for (q, a) in zip(quiz, key):
-		user
-		answer = askinteger('Quiz', q)
-		if useranswer == a:
+		useranswer = askinteger('Quiz', q)
+		if useranswer == int(a):
 			showinfo('Answer', 'You are correct!')
 			record.append(1)
 		else:
 			showinfo('Answer', 'You\'re wrong. The answer is %s' % a)
 			record.append(0)
 	score = (sum(record)/len(quiz))*100
-	showinfo('Percentage', 'You got %s questions correct!(%s%)' % (sum(record),score))
-	rf = asksaveasfile(parent=tk, title='Where would you like to save your score?')
-	print('%s%\n%s'%(score,record), file=rf)
+	showinfo('Percentage', 'You got %s questions correct!(%s%%)' % (sum(record),score))
+	rf = None
+	while rf == None:
+		rf = asksaveasfile(parent=tk, title='Where would you like to save your score?')
+	print('%s%%\n%s'%(score,record), file=rf)
 	rf.close()
 
 
