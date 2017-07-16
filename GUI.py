@@ -147,7 +147,7 @@ def take(tk):
 		return
 	record = []
 	for (q, a) in zip(quiz, key):
-		useranswer = askinteger('Quiz', q)
+		useranswer = askinteger('Quiz %s' % quiz.index(q), q)
 		if useranswer == int(a):
 			showinfo('Answer', 'You are correct!')
 			record.append(1)
