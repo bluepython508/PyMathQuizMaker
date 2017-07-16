@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from tkinter import *
-from tkinter.simpledialog import SimpleDialog, askinteger
+from tkinter.simpledialog import SimpleDialog, askinteger, askstring
 import tkinter.simpledialog as sd
 from tkinter.messagebox import *
 from tkinter.filedialog import *
@@ -84,19 +84,41 @@ def create(tk):
 		show = CopyShow(tk, quiz, 'Quiz format', 'Quiz Format')
 		pass
 	system = './quiz create -s "%s" -k %s -q %s' % (quiz, '%s','%s')
-	quizfile = asksaveasfilename(parent=tk,title='Where would you like to save the quiz?')
-	if quizfile == '()':
-		return
+	many = askinteger('Number','How many quizzes with this format would you like to create?')
+	if many == 1:
 		
-	keyfile = asksaveasfilename(parent=tk,title='Where would you like to save the key?')
-	if keyfile == '()':
-		return
-	system_wp = system % (keyfile, quizfile)
-	os.system(system_wp)
+		quizfile = asksaveasfilename(parent=tk,title='Where would you like to save the quiz?')
+		if quizfile == '()':
+			return
+		
+		keyfile = asksaveasfilename(parent=tk,title='Where would you like to save the key?')
+		if keyfile == '()':
+			return
+		system_wp = system % (keyfile, quizfile)
+		os.system(system_wp)
+	else:
+		quizloc = askdirectory(parent=tk, title='Where would you like to save the quizzes?')
+		quizpattern = askstring('Format','What filename format should the quizzes have?({} means the quiz number)')
+		keypattern = askstring('Format','What filename format should the keys have?({} means the key number)')
+		if not ('{}' in quizpattern):
+			quizpattern += '{}'
+		if not ('{}' in keypattern):
+			keypattern += '{}'
+		
+		for x in range(1,many):
+			keyfile = os.path.join(quizloc, keypattern).format((x))
+			quizfile = os.path.join(quizloc, quizpattern).format((x))
+			system_wp = system % (keyfile, quizfile)
+			os.system(system_wp)
+			
 	
 def take(tk):
 	qf = askopenfile(parent=tk, title='Where is the quizfile?')
+	if not qf:
+		return
 	kf = askopenfile(parent=tk, title='Where is the keyfile?')
+	if not kf:
+		return
 	key = kf.read()
 	quiz = qf.read()
 	kf.close()
