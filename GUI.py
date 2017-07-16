@@ -54,8 +54,7 @@ def ask_multiple_choice_question(title, prompt, options, tk):
 def popinput(tk, question, title="Quiz"):
 	val = askinteger(title, question)
 	return val
-
-def create(tk):
+def createformat(tk):
 	noqs = popinput(tk, "How many questions would you like to create?")
 	if not noqs:
 		return
@@ -79,6 +78,21 @@ def create(tk):
 		f = asksaveasfile(parent=tk, title='Save quiz format')
 		print(quiz, file=f)
 		f.close()
+	return quiz
+
+
+def create(tk):
+	if askyesno('Create new format?','Would you like to create a new quiz format?'):
+		quiz = createformat(tk)
+		if not quiz:
+			return
+	else:
+		qf = askopenfile(parent=tk, title='What quiz format would would you like to use?')
+		if not qf:
+			return
+		quiz = qf.read()
+		qf.close()
+		
 	show = askyesno('Show quiz format','Would you like to view this quiz format?')
 	if show:
 		show = CopyShow(tk, quiz, 'Quiz format', 'Quiz Format')
